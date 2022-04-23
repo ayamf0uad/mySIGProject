@@ -181,6 +181,7 @@ public class InvoiceListener implements ActionListener{
     private void saveFiles() {
         ArrayList<InvoiceHeader> invArr = frame.getInvoicesArray();
         JFileChooser fileC = new JFileChooser();
+        fileC.setDialogTitle("Save Main Invoice File");
         try {
             int res = fileC.showSaveDialog(frame);
             if (res == JFileChooser.APPROVE_OPTION) {
