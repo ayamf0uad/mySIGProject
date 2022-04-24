@@ -217,11 +217,11 @@ public class InvoiceListener implements ActionListener{
     private void createInvoice() {
         int sInvoiceIndx = frame.getInvoiceHeaderTbl().getSelectedRow();
 
-        if (frame.getInvoicesArray() == null) { JOptionPane.showMessageDialog(frame,"Can't Create Invoice Without Invoices File Loaded", "File Missing", JOptionPane.ERROR_MESSAGE);}
-        else {
+        //if (frame.getInvoicesArray() == null) { JOptionPane.showMessageDialog(frame,"Can't Create Invoice Without Invoices File Loaded", "File Missing", JOptionPane.ERROR_MESSAGE);}
+        //else {
             headDialog = new InvHeadDialog(frame);
             headDialog.setVisible(true);
-        }
+        //}
     }
 
     private void deleteInvoice() {
@@ -254,22 +254,35 @@ public class InvoiceListener implements ActionListener{
             JOptionPane.showMessageDialog(frame, "Can't Parse Date, will be today's date", "wrong date format", JOptionPane.ERROR_MESSAGE);
         }
 
-        int invNumber =0;
-        try {
-        for (InvoiceHeader inv: frame.getInvoicesArray()) {
+        if(frame.getInvoicesArray() == null){
 
-                if (inv.getNumber() > invNumber) {
-                    invNumber = inv.getNumber();
+            ArrayList<InvoiceHeader> invoiceHeaders = new ArrayList<>();
+            InvoiceHeader addedInvoice = new InvoiceHeader(1, namestr, d);
+            invoiceHeaders.add(addedInvoice);
+            frame.setInvoicesArray(invoiceHeaders);
+            InvHeadTableModel headerTblModel = new InvHeadTableModel(invoiceHeaders);
+            frame.setInvHeadTableModel(headerTblModel);
+            frame.getInvoiceHeaderTbl().setModel(headerTblModel);
+
+        }
+        else {
+            int invNumber = 0;
+            try {
+                for (InvoiceHeader inv : frame.getInvoicesArray()) {
+
+                    if (inv.getNumber() > invNumber) {
+                        invNumber = inv.getNumber();
+                    }
                 }
-        }
-        } catch(NullPointerException ex) {
-            JOptionPane.showMessageDialog(frame, "Please load Required Files to Create Invoice", "Files Required", JOptionPane.ERROR_MESSAGE);
-        }
-        invNumber++;
+            } catch (NullPointerException ex) {
+                JOptionPane.showMessageDialog(frame, "Please load Required Files to Create Invoice", "Files Required", JOptionPane.ERROR_MESSAGE);
+            }
+            invNumber++;
 
-        InvoiceHeader addedInvoice = new InvoiceHeader(0, namestr, d);
-        frame.getInvoicesArray().add(addedInvoice);
-        frame.getInvHeadTableModel().fireTableDataChanged();
+            InvoiceHeader addedInvoice = new InvoiceHeader(invNumber, namestr, d);
+            frame.getInvoicesArray().add(addedInvoice);
+            frame.getInvHeadTableModel().fireTableDataChanged();
+        }
 
         headDialog.dispose();
         headDialog = null;

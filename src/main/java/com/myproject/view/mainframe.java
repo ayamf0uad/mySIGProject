@@ -10,6 +10,7 @@ import com.myproject.model.InvoiceLine;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.*;
 
 
@@ -266,9 +267,7 @@ public class mainframe extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(mainframe.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
 
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -317,7 +316,7 @@ public class mainframe extends javax.swing.JFrame {
     }
 
     private javax.swing.JMenuItem saveFileMenuItem;
-    // End of variables declaration//GEN-END:variables
+
 
     private InvoiceListener  actionListener = new InvoiceListener(this); 
     private ArrayList<InvoiceHeader> invoicesArray;
@@ -368,9 +367,8 @@ public class mainframe extends javax.swing.JFrame {
     return null;
  }
 
-    public ArrayList<InvoiceHeader> getInvoicesArray() {
-        return invoicesArray;
-    }
+    public ArrayList<InvoiceHeader> getInvoicesArray() {return invoicesArray;}
+
 
     public InvoiceListener getAcListener() {return actionListener;}
 }
