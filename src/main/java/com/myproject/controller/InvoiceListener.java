@@ -37,8 +37,18 @@ public class InvoiceListener implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         
         switch(e.getActionCommand()){
-            case "Load Files": 
-                loadFiles();
+            case "Load Files":
+                if (frame.getInvoicesArray() != null){
+                    int a = JOptionPane.showConfirmDialog(frame, "Loading a New File Might Cause Losing of Unsaved Changes\nPlease, Make sure you save your current files first\nAre you sure you would like to continue?");
+                    if(a == JOptionPane.YES_OPTION){
+                        loadFiles();
+                    }
+
+
+                }
+                else {
+                    loadFiles();
+                }
                 break;
             case "OkayNI":
                 dsplyNIDlg();
