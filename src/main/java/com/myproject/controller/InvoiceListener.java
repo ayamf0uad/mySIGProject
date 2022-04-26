@@ -39,11 +39,14 @@ public class InvoiceListener implements ActionListener{
         switch(e.getActionCommand()){
             case "Load Files":
                 if (frame.getInvoicesArray() != null){
-                    int a = JOptionPane.showConfirmDialog(frame, "Loading a New File Might Cause Losing of Unsaved Changes\nPlease, Make sure you save your current files first\nAre you sure you would like to continue?");
+                    int a = JOptionPane.showConfirmDialog(frame, "Proceeding with loading file will delete changes\nWould you like to save current work?");
                     if(a == JOptionPane.YES_OPTION){
+                        saveFiles();
+                    }
+                    else if (a == JOptionPane.NO_OPTION){
+                        JOptionPane.showMessageDialog(frame, "Proceeding will delete existing file\nWanna proceed?", "Warning", JOptionPane.WARNING_MESSAGE);
                         loadFiles();
                     }
-
 
                 }
                 else {
